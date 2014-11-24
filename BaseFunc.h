@@ -34,7 +34,7 @@ int CmpFloat(float fValue1, float fValue2);
 
 float GetKeyFrameTime(int nKeyFrame);
 float GetKeyFrameInterval(int nKeyFrameBegin, int nKeyFrameEnd);
-std::string Value2Str(__int64 i64Value);
+std::string Value2Str(long long i64Value);
 int GetDateValue(void);
 std::string GetTimeStr(void);
 std::string GetDebugTime(void);
@@ -65,9 +65,10 @@ CCBezierTo* CreateSimpleBezierToAction(float fDuration, CCPoint ptFrom, CCPoint 
 bool IsTouchInNode(CCNode *pNode, CCTouch *touch);
 std::string GetObjType(CCObject* pObj);
 void NodeSetText(CCLabelTTF* pNode, int nValue, bool bShowZero = true, bool bNeedSign = false);
-void NodeSetText(MyEditBox* pNode, int nValue, bool bShowZero = true, bool bNeedSign = false);
+void NodeSetText(cocos2d::extension::MyEditBox* pNode, int nValue, bool bShowZero = true, bool bNeedSign = false);
 CCSprite* SpriteCreate(const char *pszName = NULL);
 CCScale9Sprite* Scale9SpriteCreate(const char *pszName);
+bool ScreenShot( const char *pszFileName );
 
 #define CREATE_FUNC_INT(__TYPE__) \
 static __TYPE__* create(int __Argv) \

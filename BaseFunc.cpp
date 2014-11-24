@@ -144,7 +144,7 @@ ccColor4B GetColor4B(DWORD dwColor)
 {
 	return ccc4((dwColor & 0x00ff0000) >> 16, (dwColor & 0x0000ff00) >> 8, dwColor & 0xff, (dwColor & 0xff000000) >> 24);
 }
-std::string Value2Str( __int64 i64Value )
+std::string Value2Str( long long i64Value )
 {
 	char szTmp[32] = { 0 };
 #ifdef WIN32
@@ -810,4 +810,15 @@ CCSprite* SpriteCreate( const char *pszName )
 	}
 
 	return CCSprite::create(pszName);
+}
+
+bool ScreenShot( const char *pszFileName )
+{
+	CCSize size = CCDirector::sharedDirector()->getWinSize();
+	CCRenderTexture* texture = CCRenderTexture::create((int)size.width, (int)size.height, kCCTexture2DPixelFormat_RGBA8888);      
+	texture->setPosition(ccp(size.width/2, size.height/2));      
+	texture->begin();  
+	CCDirector::sharedDirector()->getRunningScene()->visit();  
+	texture->end();
+	return texture->saveToFile(pszFileName, kCCImageFormatJPEG);   
 }

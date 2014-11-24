@@ -9,14 +9,18 @@
 #include "BaseDef.h"
 
 class ISceneFactory;
-class MyEditBox;
-class cocos2d::extension::CCControlSlider;
 class MyScrollView;
 class MyLayer;
 class MyCCOjbectImpl;
 class MyDrawNode;
 class MyFrameAnimationNode;
 class MyMenu;
+
+NS_CC_EXT_BEGIN
+class CCControlSlider;
+class MyEditBox;
+NS_CC_EXT_END
+
 
 #include "MyMenuItem.h"
 
@@ -78,6 +82,12 @@ enum
 	ACTION_TAG_ANIMATION,
 };
 
+enum
+{
+	MULTIRESOLUTION_POLICY_LACE,
+	MULTIRESOLUTION_POLICY_BASEPOINT,
+};
+
 class QMyGroupNode : public CCNode
 {
 public:
@@ -110,7 +120,7 @@ public:
 	MyDrawNode* CreateConfigDrawNode(const char *pszConfig);
 	CCSprite* CreateConfigSprite(const char *pszConfig, const char *pszValue = NULL);
 	CCLabelTTF* CreateConfigTextLabel(const char *pszConfig, const char *pszValue = NULL, int nWidth = -1);
-	MyEditBox* CreateConfigEditBox(const char *pszEditBox);
+	cocos2d::extension::MyEditBox* CreateConfigEditBox(const char *pszEditBox);
 	MyScrollView* CreateConfigScrollView(const char *pszConfig);
 	CCMenuItemSprite* CreateConfigMenuItem(const char *pszConfig, CCObject *pTarget = NULL, SEL_MenuHandler selector = NULL);
 	QMyGroupNode* CreateConfigGroupNode(const char *pszConfig);
@@ -187,11 +197,14 @@ public:
 	void CalcuNewPos(const CCPoint& rPtOld, CCPoint& rPtNew, int nBasePoint);
 	void SetConfigSize(float fWidth, float fHeight);
 	void SetDeviceSize(float fScrWidth, float fScrHeight);
+	void SetMultiResolutionPolicy(int nType);
 	void ManageNodeResolution(CCNode *pNode, int nBasePoint);
-
+	
+	int GetMultiResolutionPolicy(void) const;
 	CCSize GetSizeConfig(void) const;
 	CCSize GetWinSize(void) const;
 private:
+	int m_nMultiResolutionPolicy;
 	CCSize m_sizeConfig;
 	CCSize m_sizeDevice;
 
